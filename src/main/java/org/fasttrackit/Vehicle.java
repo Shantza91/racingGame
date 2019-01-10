@@ -4,6 +4,7 @@ public class Vehicle {
 
     public static int vehicleCount;
 
+
     private String name;
     private String color;
     private double mileage;
@@ -20,6 +21,12 @@ public class Vehicle {
         System.out.println("Traveled distance: "+ traveledDistance);
 
         return traveledDistance;
+    }
+
+    // Example of method overloading! (lista de parametri sa aiba cel putin o diferenta)
+    public double accelerate(double speed){
+
+        return accelerate(speed, 1);
     }
 
     public String getName() {

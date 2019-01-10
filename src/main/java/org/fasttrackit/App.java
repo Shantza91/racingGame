@@ -17,6 +17,13 @@ public class App
         System.out.println("Value from vehicle1: "+vehicle1.vehicleCount);
         System.out.println("Value from vehicle2: "+vehicle2.vehicleCount);
         System.out.println("Value from Vehicle Class: " +Vehicle.vehicleCount);
+
+        new AutoVehicle();
+
+        new AutoVehicle(new Engine());
+
+        vehicle1.accelerate(34.12);
+        vehicle2.accelerate(130,0.8);
 //        Engine engine = new Engine();
 //        engine.manufacturer = "Renault";
 //        engine.capacity = 1500;
