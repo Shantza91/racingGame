@@ -3,7 +3,7 @@ package org.fasttrackit;
 
 public class App
 {
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws Exception {
 
         // Example of static variables unique for the whole application
 //        Vehicle vehicle1 = new Vehicle();
