@@ -1,5 +1,6 @@
 package org.fasttrackit;
 
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -18,6 +19,33 @@ public class Game {
 
         addTracks();
         displayAvailableTracks();
+
+        //let the user decide what track to use (from the tracks array)
+        //and store the reference to that track in the variable below
+        int numberFromUser = getTrackNumberFromUser();
+        Track track = tracks[numberFromUser - 1];
+        System.out.println("Selected track: "+track.getName());
+
+        boolean noWinnerYet = true;
+        int competitorsWithoutFuel = 0;
+
+        while(noWinnerYet && competitorsWithoutFuel < competitors.size()) {
+            for (Vehicle vehicle : competitors) {
+                double speed = getAccelerationSpeedFromUser();
+                vehicle.accelerate(speed);
+
+                if(vehicle.getFuelLevel() <= 0){
+                    competitorsWithoutFuel++;
+                }
+
+                if(vehicle.getTotalTraveledDistance() >= track.getLength()){
+                    System.out.println("Congrats! The winner is "+ vehicle.getName());
+                    noWinnerYet = false;
+                    break;
+                }
+            }
+        }
+
     }
 
     private void addCompetitors(int competitorCount){
@@ -48,7 +76,32 @@ public class Game {
             System.out.println("Selected number of players: " + numberOfPlayers);
             return numberOfPlayers;
         } catch (InputMismatchException exception){
-            throw new Exception("Integer required.");
+//            throw new Exception("Integer required.");
+            System.out.println("Please enter a valid integer.");
+            return getCompetitorCountFromUser(); //cand o metoda se apeleaza pe ea insasi se numeste recursivitate.
+        }
+    }
+
+    private int getTrackNumberFromUser(){
+        System.out.println("Please select track number: ");
+        Scanner scanner = new Scanner(System.in);
+        try {int numberOfTrack = scanner.nextInt();
+            return numberOfTrack;}
+        catch (InputMismatchException exeption){
+            System.out.println("Please re-enter");
+            return getTrackNumberFromUser();
+        }
+
+    }
+
+    private double getAccelerationSpeedFromUser(){
+        System.out.println("Please enter acceleration speed: ");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            return scanner.nextDouble();
+        } catch (InputMismatchException e){
+            System.out.println("Please enter a valid decimal number.");
+            return getAccelerationSpeedFromUser();
         }
     }
 
