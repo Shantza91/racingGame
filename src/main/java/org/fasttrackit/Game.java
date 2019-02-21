@@ -1,6 +1,9 @@
 package org.fasttrackit;
 
 
+import org.fasttrackit.domain.TopWinner;
+import org.fasttrackit.service.TopWinnerService;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
+
+    private TopWinnerService topWinnerService = new TopWinnerService();
 
     private Track[] tracks = new Track[10];
 
@@ -40,6 +45,13 @@ public class Game {
 
                 if(vehicle.getTotalTraveledDistance() >= track.getLength()){
                     System.out.println("Congrats! The winner is "+ vehicle.getName());
+
+                    TopWinner topWinner = new TopWinner();
+                    topWinner.setName(vehicle.getName());
+                    topWinner.setWonRaces(1);
+
+                    topWinnerService.createTopWinner(topWinner);
+
                     noWinnerYet = false;
                     break;
                 }
@@ -52,6 +64,7 @@ public class Game {
         for(int i = 0; i < competitorCount; i++){
             Vehicle vehicle = new Vehicle();
             vehicle.setName(getVehicleNameFromUser());
+            vehicle.setFuelLevel(80);
             vehicle.setMileage(
                     ThreadLocalRandom.current().nextDouble(5,15));
             System.out.println("Vehicle mileage: "+vehicle.getMileage());
